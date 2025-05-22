@@ -58,7 +58,7 @@ TR(4)
 //Part2
 TR(16)
 	Sub {
-		TmpChangeR(35,0)TmpChangeR(105,!2)
+		TmpChangeR(37,0)TmpChangeR(98,!2)
 		TmpChangeR(150,!2)
 		TmpChangeR(130,!1^1)
 		r2
@@ -233,7 +233,7 @@ TR(4)
 	l12 RCD(a>c#ea<)r < RCD(dfg#>d<)r RCD(<a>c#ea)r RCD(<dfg#>d)r RCD(<<a>c#ea>)r RCD(<dfg#>d)r
 //Part5
 TR(16)
-	Sub{TmpChangeR(20,0)r9TmpChangeR(40,0)TmpChangeR(110,!2)TmpChangeR(50,!4..)}r1
+	Sub{TmpChangeR(20,0)r9TmpChangeR(40,0)TmpChangeR(100,!2)TmpChangeR(50,!4..)}r1
 	Sub{TmpChangeR(20,0)r9TmpChangeR(30,0)TmpChangeR(105,!2)TmpChangeR(50,!4..)}r1
 	Sub{TmpChangeR(25,!9)TmpChangeR(40,0)TmpChangeR(105,!2)TmpChangeR(95,!4..)}r1
 	Sub{TmpChangeR(66,0)TmpChangeR(55,!27^27^27^27)TmpChangeR(30,0)r27r27TmpChangeR(70,!4)}r1
@@ -265,18 +265,18 @@ TR(4)
 	Sub{l18 <RCD(a>c#ea<) r #PART}[6 r1]
 //Part6
 TR(16)
-	[2  TmpChangeR(155,0)r8TmpChangeR(165,0)TmpChangeR(150,!4.)]
-	[2  TmpChangeR(175,0)r8TmpChangeR(165,0)TmpChangeR(150,!4.)]
-	[2  TmpChangeR(165,0)r8TmpChangeR(130,0)TmpChangeR(150,!4.)]
-	[2  TmpChangeR(175,0)r8TmpChangeR(165,0)TmpChangeR(150,!4.)]
+	[2  TmpChangeR(155,0)r8TmpChangeR(168,0)TmpChangeR(150,!4.)]
+	[2  TmpChangeR(175,0)r8TmpChangeR(168,0)TmpChangeR(150,!4.)]
+	[2  TmpChangeR(165,0)r8TmpChangeR(133,0)TmpChangeR(150,!4.)]
+	[2  TmpChangeR(175,0)r8TmpChangeR(168,0)TmpChangeR(150,!4.)]
 
-	[2  TmpChangeR(170,0)r8TmpChangeR(150,0)TmpChangeR(120,!4.)]
-	[2  TmpChangeR(170,0)r8TmpChangeR(150,0)TmpChangeR(135,!4.)]
-	[2  TmpChangeR(170,0)r8TmpChangeR(160,0)TmpChangeR(150,!4.)]
-	[2  TmpChangeR(170,0)r8TmpChangeR(160,0)TmpChangeR(140,!4.)]
+	[2  TmpChangeR(170,0)r8TmpChangeR(153,0)TmpChangeR(120,!4.)]
+	[2  TmpChangeR(170,0)r8TmpChangeR(153,0)TmpChangeR(135,!4.)]
+	[2  TmpChangeR(170,0)r8TmpChangeR(163,0)TmpChangeR(150,!4.)]
+	[2  TmpChangeR(170,0)r8TmpChangeR(162,0)TmpChangeR(140,!4.)]
 
-	[2  TmpChangeR(170,0)r8TmpChangeR(160,0)TmpChangeR(150,!4.)]
-	[2  TmpChangeR(170,0)r8TmpChangeR(160,0)TmpChangeR(140,!4.)]
+	[2  TmpChangeR(170,0)r8TmpChangeR(164,0)TmpChangeR(150,!4.)]
+	[2  TmpChangeR(170,0)r8TmpChangeR(163,0)TmpChangeR(140,!4.)]
 	[2  TmpChangeR(170,0)r8TmpChangeR(160,0)TmpChangeR(150,!4.)]
 	[2  TmpChangeR(170,0)r8TmpChangeR(160,0)TmpChangeR(110,!4.)]
 
@@ -499,7 +499,7 @@ TR(4)
 //Part8
 TR(16)
 	Sub{
-		TmpChangeR(92,0)TmpChangeR(110,!1)
+		TmpChangeR(92,0)TmpChangeR(108,!1)
 		TmpChangeR(98,!1)
 		TmpChangeR(95,!2)TmpChangeR(110,0)TmpChangeR(105,!2)
 		TmpChangeR(110,0)TmpChangeR(105,!1)
@@ -514,7 +514,7 @@ TR(16)
 		TmpChangeR(105,0)TmpChangeR(102,!1)
 		TmpChangeR(90,!1)
 
-		TmpChangeR(105,!2)TmpChangeR(110,0)TmpChangeR(105,!2)
+		TmpChangeR(103,!2)TmpChangeR(110,0)TmpChangeR(105,!2)
 		TmpChangeR(105,!2)TmpChangeR(110,0)TmpChangeR(105,!2)
 		TmpChangeR(95,0)TmpChangeR(103,!4) TmpChangeR(93,0)TmpChangeR(100,!4) TmpChangeR(90,0)TmpChangeR(98,!4) TmpChangeR(85,0)TmpChangeR(95,!4)
 		TmpChangeR(135,!1)
@@ -991,27 +991,27 @@ TR(4)
 ”Žq 2,4
 
 TR(16)
-	TmpChangeR(125,0)TmpChangeR(140,!2)
-	r2
-	r2
-	TmpChangeR(138,!2)
-
-	TmpChangeR(140,!2)
+	TmpChangeR(125,0)TmpChangeR(142,!2)
 	r2
 	r2
 	TmpChangeR(130,!2)
 
-	TmpChangeR(140)r2
+	TmpChangeR(143,!2)
+	r2
+	r2
+	TmpChangeR(133,!2)
+
+	TmpChangeR(143)r2
 	r2
 	r2
 	r2
-	TmpChangeR(145,!1)
-	r2	
+	TmpChangeR(146,!1)
+	r2
 	r2
 
 	r2
 	r2
-	TmpChangeR(150,!1)
+	TmpChangeR(153,!1)
 
 	r2
 	TmpChangeR(120,!1)
@@ -1213,9 +1213,9 @@ TR(4)
 //Part17
 TR(16)
 	TmpChangeR(100,0)r8TmpChangeR(125,!4.)
-	TmpChangeR(140,0)TmpChangeR(80,!2)
+	TmpChangeR(150,0)TmpChangeR(90,!2)
 	TmpChangeR(110,0)r8TmpChangeR(127,!4.)
-	TmpChangeR(137,0)TmpChangeR(90,!2)
+	TmpChangeR(147,0)TmpChangeR(100,!2)
 
 #PEDAL={
 	Sub{
@@ -1287,7 +1287,7 @@ TR(16)
 		TmpChangeR(50,!2)
 		TmpChangeR(60,!2)
 		TmpChangeR(70,!2)
-		TmpChangeR(60,!4)TmpChangeR(50,!4)
+		TmpChangeR(60,!4)TmpChangeR(40,!4)
 	}[11 r2]
 
 #PEDAL={
@@ -1302,7 +1302,7 @@ TR(1)
 		l8RCD(!df#a>d<)l16[RCD(eb->c#e<)] l8RCD(f#a>d!f#<)l16[RCD(b->c#eb-<)]>
 		[l8RCD(df#>!d<)l16[RCD(<b->c#eb-)]]
 
-		l8RCD(df#>d<)#SF RCD(<b->c#eb-) r RCD(<b->c#eb-)
+			l8RCD(df#>d<)#SF RCD(<b->c#eb-) r RCD(<b->c#eb-)
 		rRCD(<b->c#eb-) RCD(<fg#b>f)RCD(<ce-f#>c)<<
 		RCD(gb->c#g<)RCD(dfg#>d<)RCD(<a>ce-a)RCD(<b->c#eb-)
 
@@ -1325,7 +1325,7 @@ TR(2)
 		rRCD(<g>c#eg) RCD(dfg#>d<)RCD(df#a>e-<)
 		RCD(dgb->e<)RCD(dg#b>f<)RCD(da>cf#<)RCD(db->c#g<)
 
-		q100RCDINIT(56,64)#M l4ro3RCD(db>g#)
+		q100#F l4ro3RCD(db>g#)
 	}[11 r2]
 
 TR(3)
@@ -1421,7 +1421,7 @@ TR(4)
 	r1
 	#SP r4.RMDCresc(-3)RMD(f8>d4.<f8)
 	r1
-	#PP r4.RMDCresc(3)RMD(>d8b4.d8<)
+	#PP r4.RMDCresc(2)RMD(>d8b4.d8<)
 	#PP r4.RMDCresc(3)RMD(g#8>f4.<g#8)
 	#PP r4.RMDCresc(-4)RMD(d8b4.<g#8)
 	RMD(>f1)
@@ -1442,7 +1442,7 @@ TR(16)
 	Sub{
 		r1
 		[2 #PEDALON r1 #PEDALOFF]
-		#PEDALON r2 #PEDALOFF #PEDALON r4. #PEDALOFF r16
+		#PEDALON r2 #PEDALOFF #PEDALON r4.. #PEDALOFF r32
 		#PEDALON r1r1r1r1r2
 	}
 }
