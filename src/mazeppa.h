@@ -1782,5 +1782,6 @@ TR(4)
 
 #PEDALON={Sub {r56y64,127}}
 #PEDALOFF={Sub{r-48 RandR(50,72) y64,0}}
+#FPEDALOFF={y64,0}
 #PEDALOFF2={Sub{r-48 RandR(48,52) y64,0}}
 //#PEDALOFF={Sub{r-32 y64,0 y64,0}}
