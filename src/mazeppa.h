@@ -10,10 +10,10 @@ IF(TINY=1) {
 
 
 ///////////////////////////////////////////////////////////////////////////////
-// title:        "tempo.h" ver 1.1
-// description:  TempoChange非互換高機能テンポチェンジ機能インクルードファイル(2015/05/28)
+// title:        "tempo.h" ver 1.2
+// description:  TempoChange非互換高機能テンポチェンジ機能インクルードファイル(2025/09/20)
 // keywords:     SAKURA Function     by ななこっち★ @nanakochi123456
-// HP:           http://nano.daiba.cx/
+// HP:           https://773.moe/
 ///////////////////////////////////////////////////////////////////////////////
 // tempo.h デバッグ機能付きテンポチェンジ
 // （サクラに TempoChange がありますが、その高機能版です）
@@ -23,6 +23,8 @@ IF(TINY=1) {
 // ・Int DEBUG=0 // 1 でメトロノームがなります、2 でテンポチェンジ時にうるさい雑音が鳴ります
 // 　（メトロノームは10000小節で終了します、4/4 を前提に作成されています。）
 //
+// ・Int RTEMPO
+//  値%の範囲内でランダムにする
 // ・Int TEMPORATIO
 // 　ベーステンポの割合を％で設定します。（100がデフォルト。）
 //
@@ -55,7 +57,7 @@ IF(TINY=1) {
 //Int TEMPODIFF=0
 ///////////////////////////////////////////////////////////////////////////////
 
-//#METORONOMEMML={M8m8m8 m8m8m8 m8m8m8 m8m8m8}
+#METORONOMEMML={M8m8m8 m8m8m8}
 
 IF(#METORONOMEMML="") {
 	#METORONOMEMML={M4m4m4m4}
@@ -84,7 +86,9 @@ Function TmpChangeR(tempo, len) {
 	r%(len)
 }
 
-Function TmpChange(tempo, len) {
+Function TmpChange(Atempo, len) {
+	Int Rtempo
+
 	IF(len=0) {
 		IF(DEBUG=2) {
 			#DEBUGMML1
@@ -95,12 +99,20 @@ Function TmpChange(tempo, len) {
 		}
 	}
 
+	IF(RTEMPO>0) {
+		Int Ztempo = Atempo * RTEMPO / 100
+		Rtempo=Random(Atempo - Ztempo, Atempo + Ztempo)
+		//Print("RTEMPO="+RTEMPO+" A="+Atempo+" Z="+Ztempo+" R="+Rtempo)
+	} ELSE {
+		Rtempo=Atempo
+	}
+
 	IF(len=0) {
 		IF(!(IGNORETEMPO<>1)) {
 			IF(TEMPORATIO=0) {
-				Tempo=tempo+TEMPODIFF
+				Tempo=Rtempo+TEMPODIFF
 			} ELSE {
-				Tempo=(tempo*TEMPORATIO)/100+TEMPODIFF
+				Tempo=(Rtempo*TEMPORATIO)/100+TEMPODIFF
 			}
 		}
 	} ELSE {
@@ -108,9 +120,9 @@ Function TmpChange(tempo, len) {
 			Int TT1=Tempo
 			Int TT2
 			IF(TEMPORATIO=0) {
-				TT2=tempo+TEMPODIFF
+				TT2=Rtempo+TEMPODIFF
 			} ELSE {
-				TT2=(tempo*TEMPORATIO)/100+TEMPODIFF
+				TT2=(Rtempo*TEMPORATIO)/100+TEMPODIFF
 			}
 			Int TTDIFF=(TT2 - TT1)
 			Int TTSTEP=TTDIFF
@@ -163,7 +175,7 @@ IF(TEST=1) {
 // title:        "loop.h" ver 1.0
 // description:  Loopインクルードファイル(2015/06/02)
 // keywords:     SAKURA Function     by ななこっち★ @nanakochi123456
-// HP:           http://nano.daiba.cx/
+// HP:           https://773.moe/
 ///////////////////////////////////////////////////////////////////////////////
 // loop.h 可変回数のループ
 ///////////////////////////////////////////////////////////////////////////////
@@ -262,8 +274,8 @@ IF(TEST=1) {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// title:        "rnd.h" ver 1.10
-// description:  単音、和音、ドラムをランダムな音量とタイミングで演奏するインクルードファイル(2025/05/19)
+// title:        "rnd.h" ver 1.12
+// description:  単音、和音、ドラムをランダムな音量とタイミングで演奏するインクルードファイル(2025/09/23)
 // keywords:     SAKURA Function     by ななこっち★ @nanonano773
 // License:      GPL3
 ///////////////////////////////////////////////////////////////////////////////
@@ -283,6 +295,13 @@ IF(TEST=1) {
 // rmaxを省略すると、rmin、rmax共に加算、または減算を行なう
 //
 // rmin, rmaxは与える休符値、vmin, vmaxは与える音量値
+//
+// Function RMDAV(vmin, vmax)
+// MMLの音文字の前に ! を指定することで、アクセントと認識する
+// そのアクセントの音量を設定する
+//
+// Function RMDQ(qmin, qmax)
+//
 // Function RMD(mml)
 // ランダムに演奏したいメロディーのMMLを入力する
 // Function RMDENABLE(1 or 0)
@@ -299,6 +318,7 @@ IF(TEST=1) {
 // ランダムに演奏したい単音のMMLを入力すると、オクターブで演奏する。
 // Function RCDENABLE(1 or 0)
 // 和音ランダム演奏機能を有効/無効にする
+// Function RCDQ(qmin, qmax)
 // Function RCDR(rmin, rmax)
 // Function RCDV(vmin, vmax)
 // Function RCDAV(vmin, vmax)
@@ -340,8 +360,13 @@ Int RMD_RMIN=192
 Int RMD_RMAX=768
 Int RMD_VMIN=95
 Int RMD_VMAX=100
+Int RMD_AMIN=95
+Int RMD_AMAX=100
+Int RMD_AFLG=0
 Int RMD_CRESC=0
 Int RMD_ENABLE=1
+Int RMD_QMIN=0
+Int RMD_QMAX=0
 
 Int RCD_MIN=192
 Int RCD_MAX=768
@@ -353,6 +378,8 @@ Int RCD_CRESC=0
 Int RCD_TMIN=-1
 Int RCD_TMAX=-1
 Int RCD_ENABLE=1
+Int RCD_QMIN=0
+Int RCD_QMAX=0
 
 Int SRCD_MIN=192
 Int SRCD_MAX=768
@@ -362,6 +389,8 @@ Int SRCD_CRESC=0
 Int SRCD_TMIN=-1
 Int SRCD_TMAX=-1
 Int SRCD_ENABLE=1
+Int SRCD_QMIN=0
+Int SRCD_QMAX=0
 
 Int BDROTATE=0
 Int SDROTATE=0
@@ -397,6 +426,11 @@ Function RMDR(Int RMIN, Int RMAX) {
 	RMD_RMAX=RMAX
 }
 
+Function RMDQ(Int QMIN, Int QMAX) {
+	RMD_QMIN=QMIN
+	RMD_QMAX=QMAX
+}
+
 Function RMDV(Int VMIN, Int VMAX) {
 	IF(VMAX=0) {
 		Int TMPMIN=RMD_VMIN
@@ -423,6 +457,33 @@ Function RMDV(Int VMIN, Int VMAX) {
 	}
 }
 
+Function RMDAV(Int VMIN, Int VMAX) {
+//	RMD_CRESC=0
+	IF(VMAX=0) {
+		Int TMPMIN=RMD_AMIN
+		Int TMPMAX=RMD_AMAX
+		TMPMIN=TMPMIN+VMIN
+		TMPMAX=TMPMAX+VMIN
+		IF(TMPMIN < 0) {
+			TMPMIN=0
+		}
+		IF(TMPMIN > 127) {
+			TMPMAX=127
+		}
+		IF(TMPMAX < 0) {
+			TMPMAX=0
+		}
+		IF(TMPMAX > 127) {
+			TMPMAX=127
+		}
+		RMD_AMIN=TMPMIN
+		RMD_AMAX=TMPMAX
+	} ELSE {
+		RMD_AMIN=VMIN
+		RMD_AMAX=VMAX
+	}
+}
+
 Function RMD(Str MML) {
 	Str BUF=""
 	Str FIRST=""
@@ -432,6 +493,8 @@ Function RMD(Str MML) {
 	Str VL
 	Str RRMML
 	Str RMML
+	Str QRMML=""
+	Str Q=""
 	Str FM=""
 	Int C=0
 	Str LenStr
@@ -446,55 +509,77 @@ Function RMD(Str MML) {
 	} ELSE {
 		For(Int i=1; MID(MML, i, 1)!=""; i++) {
 			M=MID(MML, i, 1)
-			IF((ASC(M)>=48 && ASC(M)<=57) || M="r"||M="."||M="^") {
-				IF(TO>=1) {
-					LenStr=LenStr+M
-				}
-				ML=ML+M
+			IF(M=="!") {
+				RMD_AFLG=1
 			} ELSE {
-				IF((ASC(M)>=97 && ASC(M)<=103)) {
-					TOKEN++
-					TO=1
-					FM=RRMML+VL+ML+RMML
-					IF(TOKEN>1) {
-						C++
-						IF(FM!="") {
-							BUF=BUF+"Sub{"+FM+"}r"+LenStr
-						}
-						TOKEN=0
-					} ELSE {
-						BUF=BUF+ML
+				IF((ASC(M)>=48 && ASC(M)<=57) || M="r"||M="."||M="^") {
+					IF(TO>=1) {
+						LenStr=LenStr+M
 					}
-					LenStr=""
-					ML=M
-					IF(RMD_RMAX>0) {
-						R=Random(RMD_RMIN, RMD_RMAX)
-						IF(Random(0,10)<5) {
-							RRMML="r-"+R
-							RMML="r"+R
-						} ELSE {
-							RRMML="r"+R
-							RMML="r-"+R
-						}
-					}
-					VL="v"+Random(RMD_VMIN, RMD_VMAX)
-					RMDV(RMD_CRESC,0)
-				} ELSE {
 					ML=ML+M
-					IF(TO=1) {
-						TO=2
-					}
-					IF((ASC(M)>=97 && ASC(M)<=103) || M="r" || (ASC(M)>=48 && ASC(M)<=57) || M="." ||M="^"|| M="-"||M="#") {
+				} ELSE {
+					IF((ASC(M)>=97 && ASC(M)<=103)) {
+						TOKEN++
+						TO=1
+						IF(RMD_QMAX>0) {
+							Q=Random(RMD_QMIN, RMD_QMAX)
+							QRMML="q"+Q
+						}
+						FM=QRMML+RRMML+VL+ML+RMML
+						IF(TOKEN>1) {
+							C++
+							IF(FM!="") {
+								BUF=BUF+"Sub{"+FM+"}r"+LenStr
+							}
+							TOKEN=0
+						} ELSE {
+							BUF=BUF+ML
+						}
+						LenStr=""
+						ML=M
+						IF(RMD_RMAX>0) {
+							R=Random(RMD_RMIN, RMD_RMAX)
+							IF(Random(0,10)<5) {
+								RRMML=" r-"+R
+								RMML=" r"+R
+							} ELSE {
+								RRMML=" r"+R
+								RMML=" r-"+R
+							}
+						}
+						IF(RMD_AFLG == 0) {
+							VL="v"+Random(RMD_VMIN, RMD_VMAX)
+							RMDV(RMD_CRESC,0)
+							RMDAV(RMD_CRESC,0)
+							RMD_AFLG=0
+						} ELSE {
+							VL="v"+Random(RMD_AMIN, RMD_AMAX)
+							RMDV(RMD_CRESC,0)
+							RMDAV(RMD_CRESC,0)
+							RMD_AFLG=0
+						}
 					} ELSE {
-						TO=0
+						ML=ML+M
+						IF(TO=1) {
+							TO=2
+						}
+						IF((ASC(M)>=97 && ASC(M)<=103) || M="r" || (ASC(M)>=48 && ASC(M)<=57) || M="." ||M="^"|| M="-"||M="#") {
+						} ELSE {
+							TO=0
+						}
 					}
 				}
 			}
 		}
-		FM=RRMML+VL+ML+RMML
+		FM=QRMML+RRMML+VL+ML+RMML
 		IF(FM!="") {
 			BUF=BUF+"Sub{"+FM+"}r"+LenStr
 		}
+	}
+	IF(DEBUG=1 || TEST=1) {
+//		Print(RMD_QMIN)
+//		Print(RMD_QMAX)
+//		Print(BUF)
 	}
 	BUF
 }
@@ -505,6 +590,14 @@ Function RCDENABLE(Int FLG) {
 
 Function SRCDENABLE(Int FLG) {
 	SRCD_ENABLE=FLG
+}
+
+Function RCDCresc(Int C) {
+	RCD_CRESC=C
+}
+
+Function SRCDCresc(Int C) {
+	SRCD_CRESC=C
 }
 
 Function RCDINIT(Int MIN, Int MAX, Int VMIN, Int VMAX, Int VDIF) {
@@ -553,6 +646,17 @@ Function RCDV(Int VMIN, Int VMAX) {
 	}
 }
 
+Function RCDQ(Int QMIN, Int QMAX) {
+	RCD_QMIN=QMIN
+	RCD_QMAX=QMAX
+}
+
+Function SRCDQ(Int QMIN, Int QMAX) {
+	SRCD_QMIN=QMIN
+	SRCD_QMAX=QMAX
+}
+
+
 Function RCDAV(Int VMIN, Int VMAX) {
 	RCD_CRESC=0
 	IF(VMAX=0) {
@@ -590,6 +694,8 @@ Function RCD(Str MML) {
 	Int C=0
 	Str VL
 	Int ACT=0
+	Str Q
+	Str QRMML
 
 	IF(RCD_ENABLE=0) {
 		BUF="'" + MML + "'"
@@ -602,7 +708,7 @@ Function RCD(Str MML) {
 		For(Int i=1; MID(MML, i, 1)!=""; i++) {
 			M=MID(MML, i, 1)
 			IF(DEBUG=1||TEST=1) {
-				Print("Count "+ C + " Str="+M)
+				//Print("Count "+ C + " Str="+M)
 			}
 			IF(M="!") {
 				ACT=1
@@ -663,10 +769,16 @@ Function RCD(Str MML) {
 				}
 			}
 		}
-		VL="Sub{r-96v"+Random(RMD_VMIN, RMD_VMAX)+"}"
-		BUF=BUF+"Sub"+CHR(123)+R+ML+CHR(125)+FIRST+"r"
+		IF(RCD_QMAX>0) {
+			Q=Random(RCD_QMIN, RCD_QMAX)
+			QRMML="q"+Q
+		}
+		VL="Sub{r-96" + "v"+Random(RMD_VMIN, RMD_VMAX)+"}"
+		BUF=QRMML+BUF+"Sub"+CHR(123)+R+ML+CHR(125)+FIRST+"r"
 		IF(DEBUG=1 || TEST=1) {
-			Print(BUF)
+//			Print(RCD_QMIN)
+//			Print(RCD_QMAX)
+//			Print(BUF)
 		}
 	}
 	BUF
@@ -1344,6 +1456,12 @@ Function SyncR() {
 
 */
 
+Function Q(Int qmin, Int qmax) {
+	RMDQ(qmin,qmax)
+	RCDQ(qmin,qmax)
+	SRCDQ(qmin,qmax)
+}
+
 #REV={
 	IF(TWM2=1) {
 		REV(50)
@@ -1780,7 +1898,7 @@ TR(4)
 
 拍子 4,4
 
-#PEDALON={Sub {r56y64,127}}
+#PEDALON={Sub {y23,64 r56y64,127}}
 #PEDALOFF={Sub{r-48 RandR(50,72) y64,0}}
 #FPEDALOFF={y64,0}
 #PEDALOFF2={Sub{r-48 RandR(48,52) y64,0}}

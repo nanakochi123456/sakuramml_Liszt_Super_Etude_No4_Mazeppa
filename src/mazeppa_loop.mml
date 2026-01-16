@@ -1,14 +1,14 @@
-// リスト：超絶技巧練習曲 第4番「マゼッパ」 ループ版
-////////////////////////////////////////////////////
+// リスト：超絶技巧練習曲 第4番「マゼッパ」 ループ版 v1.1
+/////////////////////////////////////////////////////////
 Int DY=1			// 奨励音源ならこのまま、それ以外なら0
 Int DEBUG=0			// 1=メトロノーム 2=雑音付き、途中で拍子2回変わるので非奨励
 Int KEY=0			// 移調
 Int TEMPORATIO=100	// 100がデフォルト
 Int TINY=0			// MIDIを軽くする TWM2時必須
 Int IGNORETEMPO=0		// テンポ変化を無効にする
- Tempo 60
+// Tempo 60
 Int TEMPODIFF=0		// テンポ差分 -5以下にしてはならない
-Int LOOP=7			// ループ回数
+Int LOOP=2			// ループ回数 30 with TEMPORATIO=101
 
 System.RandomSeed=1
 
@@ -30,23 +30,23 @@ Include(mazeppa.h)
 
 #M01_01={
 	TR(1)
-		#R #MS l8
+		#R #MSA l8
 		RCDINIT(56,72)
 		Sub {
 			r4
 			o5 #F #PEDALON Sub{RCD(!c#gb->eg>c#e!b-)}r8r8 #PEDALOFF r4
-			o4 #F #PEDALON Sub{RCD(!g#>dfb>!dg#b>f)}r8r8 #PEDALOFF r8
+			o4 #F #PEDALON Sub{RCD(!g#>dfb>!dg#b>!f)}r8r8 #PEDALOFF r8
 
 			o4 #PPS #PEDALON Sub{RCD(e-a>c!f#a>e-f#>!c)}r8..#PEDALOFF r32
 			o3 #P #PEDALON Sub{RCD(b->eg>!c#eb->c#!g)}r8..#PEDALOFF r32
-			o3 #PS #PEDALON Sub{RCD(!fb>dg#!b>fg#>d)}r8..#PEDALOFF r32
+			o3 #PS #PEDALON Sub{RCD(!fb>dg#!b>fg#>!d)}r8..#PEDALOFF r32
 
-			o3 #M #PEDALON Sub{RCD(!cf#a>e-!f#>ce-a)}r8..#PEDALOFF r32
-			o3 #MS #PEDALON Sub{RCD(!c#gb->e!g>c#eb-)}r8..#PEDALOFF r32
-			o3 #F #PEDALON Sub{RCD(!dg#b>f!g#b>f)}r8..#PEDALOFF r32
-			o2 #FS #PEDALON Sub{RCD(!b->fg>d!fg>d)}r8..#PEDALOFF r32
+			o3 #M #PEDALON Sub{RCD(!cf#a>e-!f#>ce-!a)}r8..#PEDALOFF r32
+			o3 #MS #PEDALON Sub{RCD(!c#gb->e!g>c#e!b-)}r8..#PEDALOFF r32
+			o3 #F #PEDALON Sub{RCD(!dg#b>f!g#b>!f)}r8..#PEDALOFF r32
+			o2 #FS #PEDALON Sub{RCD(!b->fg>d!fg>!d)}r8..#PEDALOFF r32
 
-			o2 #FF  #PEDALON Sub{RCD(!a>dfa>!a>dfa)}r4.. #PEDALOFF r16
+			o2 #FF  #PEDALON Sub{RCD(!a>dfa>!a>df!a)}r4.. #PEDALOFF r16
 			#R o3 #F  #PEDALON Sub{RCD(a>df!a>a>df!a)}r4.. #PEDALOFF r16
 			o4 #FF  #PEDALON Sub{RCD(!a>c#ea>ga>c#e!a)}r2.#PEDALOFF r4
 		}[5 r1]
@@ -81,22 +81,22 @@ Include(mazeppa.h)
 }
 
 #M02_PART2_1={
-	#SP
+	#SPA
 	#PEDALON l16 RMDCresc(2)RMD(rab->c#) l20 RMDCresc(-2)RMD(fedc#<b-) #PEDALOFF #PEDALON l24 RMDCresc(2)RMD(ab->c#def) RMDCresc(-2)RMD(b-agfed)
 	#PEDALOFF #PEDALON l28 RMDCresc(2)RMD(c#defgab->c#) l20 RMDCresc(-1)RMD(fedc#<b-)l24 RMDCresc(2)RMD(ab->c#def) RMDCresc(-1)RMD(b-agfed)
 	#PEDALOFF #PEDALON l28 RMDCresc(2)RMD(c#defgab->c#) l20 RMDCresc(-1)RMD(fedc#<b-)l24 RMDCresc(2)RMD(ab->c#def) RMDCresc(-1)RMD(b-agfed)
 	#PEDALOFF #PEDALON l28 RMDCresc(3)RMD(c#defgab->c#) l20 RMD(fedc#<b-)Sub{l36 RMD(ab->c#defgab->c#)}r4 #PEDALOFF
-	Sub{#PEDALON l50 RMDCresc(-1)RMD(fedc#<b-agfedc#<b- agfedc#<b-agfed)RMDCresc(1)RMD(c#<b-agfe dc#<b-)#SSF RMD(a)l48 #PEDALOFF q120 #PEDALON RMD(gfe) #PEDALOFF}r2
+	Sub{#PEDALON l50 RMDCresc(-1)RMD(!fedc#<b-agfedc#<b- agfedc#<b-agfed)RMDCresc(1)RMD(c#<b-agfe dc#<b-)#SSF RMD(a)l48 #PEDALOFF q120 #PEDALON RMD(!g!f!e) #PEDALOFF}r2
 	#PEDALOFF
 }
 
 #M02_PART2_2={
-	#SP
+	#SPA
 	#PEDALON l16 RMDCresc(2)RMD(rab->c#) l20 RMDCresc(-2)RMD(fedc#<b-) #PEDALOFF #PEDALON l24 RMDCresc(2)RMD(ab->c#def) RMDCresc(-2)RMD(b-agfed)
 	#PEDALOFF #PEDALON l28 RMDCresc(2)RMD(c#defgab->c#) l20 RMDCresc(-1)RMD(fedc#<b-)l24 RMDCresc(2)RMD(ab->c#def) RMDCresc(-1)RMD(b-agfed)
 	#PEDALOFF #PEDALON l28 RMDCresc(2)RMD(c#defgab->c#) l20 RMDCresc(-1)RMD(fedc#<b-)l24 RMDCresc(2)RMD(ab->c#def) RMDCresc(-1)RMD(b-agfed)
 	#PEDALOFF #PEDALON l28 RMDCresc(3)RMD(c#defgab->c#) l20 RMDCresc(-1)RMD(fedc#<b-)Sub{l36 RMD(ab->c#defgab->c#)}r4 #PEDALOFF
-	Sub{#PEDALON #SSF RMDCresc(-2)l50 RMD(fedc#<b-agfedc#<b-)RMDCresc(-1)RMD(agfedc#<b-agfed)RMDCresc(3)RMD(c#<b-agfe dc#<b-)#SSF RMD(arrr) #PEDALOFF}r2
+	Sub{#PEDALON #SSF RMDCresc(-2)l50 RMD(!fedc#<b-agfedc#<b-)RMDCresc(-1)RMD(agfedc#<b-agfed)RMDCresc(3)RMD(c#<b-agfe dc#<b-)#SSF RMD(arrr) #PEDALOFF}r2
 	#PEDALOFF
 }
 
@@ -652,7 +652,7 @@ Include(mazeppa.h)
 			o5r[3 RCD(df#):RCD(a>d)]RCD(a>d<)RCD(df#)< RCD(a>d<)RCD(df#) RCD(a>d<)RCD(df#)< RCD(a>d<)RCD(df#) RCD(a>d<)RCD(df#)< RCD(a>d<)RCD(df#) RCD(a>d<)RCD(df#)
 			ro2RMD(d>d>d >d>d>d>d)
 			rrr
-			#SP o6 r#PEDALON [5 ROCT(d) RCDV(3)] #PEDALOFF
+			#SP o6 #PEDALON [5 ROCT(d) RCDV(4)] #PEDALOFF
 		}r1r1r1
 }
 
@@ -859,14 +859,14 @@ Include(mazeppa.h)
 	TR(2)
 		#R o4 #M10PEDAL l12
 		Sub{
-			RCDINIT(32,48) #PA l2 RCD(g#>df!b<) l4^6<RCD(g#>df!b<) RMD(>b12<)
+			RCDINIT(32,48) #MA l2 RCD(g#>df!b<) l4^6<RCD(g#>df!b<) RMD(>b12<)
 			l2 RCD(g#>d#b<)<Sub{r-12 l12[#R #SP RCD(g#>d#<)]}r2>>
 
-			RCDINIT(32,48) #M l2 RCD(g#>df!b<) l4^6<RCD(g#>df!b<) RMD(>b12<)
+			RCDINIT(32,48) #FA l2 RCD(g#>df!b<) l4^6<RCD(g#>df!b<) RMD(>b12<)
 			l2 RCD(g#>d#b<)<Sub{r-12 l12[#R #MS RCD(g#>d#<)]}r2>>
 
-			RCDINIT(32,48) #M l2 RCD(g#>df!b<) l4^6<RCD(g#>df!b<) RMD(>b12<)<
-			o3l48RMD(g>ce) #R >l12^12^4RCD(ce)<<<l4ROCT(g)>>RCD(g>ce<)
+			RCDINIT(32,48) #FFSA l2 RCD(g#>df!b<) l4^6<RCD(g#>df!b<) RMD(>b12<)<
+			#F o3l48RMD(g>ce) #R >l12^12^4RCD(ce)<<<l4ROCT(g)>>RCD(g>ce<)
 			l2RCD(a->d-f<) RCDINIT(32,48)<l4^6RCD(g>dfb)l12#R RCD(dfb)
 			#R l2RCD(g>ce)<<<l4ROCT(g)>>RCD(g>ce<)
 			l2RCD(a->d-!f<)
@@ -1010,15 +1010,15 @@ Include(mazeppa.h)
 #M13_01={
 	TR(1)
 		#R o6 #M13PEDAL l8 #MSA q10
-		l4RCD(!df>d<)r8 l4RCD(!df>d<)l16rRCD(c>c<)<
-		l4RCD(!b->eb-<)r8 l4RCD(!b->eb-<)l16rRCD(b->b-<)
-		l4RCD(!a>ea<)l16rRCD(a>a<) >l4RCD(!eg>e<)<l16rRCD(g>g<)
-		l4RCD(!fa>f<)l16rRCD(a>a<) l4RCD(!df>d<)r8
+		l4RCD(df>!d<)r8 l4RCD(df>!d<)l16rRCD(c>c<)<
+		l4RCD(b->e!b-<)r8 l4RCD(b->e!b-<)l16rRCD(b->b-<)
+		l4RCD(a>e!a<)l16rRCD(a>a<) >l4RCD(eg>!e<)<l16rRCD(g>g<)
+		l4RCD(fa>!f<)l16rRCD(a>a<) l4RCD(df>!d<)r8
 
-		>l4RCD(!ce>c<)r8 l4RCD(!ce>c<)< l16rRCD(b->b-<)
-		l4RCD(!a>ga<)l16r>RCD(c>c<)< l4RCD(!fa>fa<)r8
-		>l4RCD(!eg#>e<)r8 l4RCD(!eb>e<) l16rRCD(d>d<)
-		l4RCD(!c#>c#<)l16rRCD(e>e<)< l4RCD(!a>c#a<)l16rRCD(a>a<)
+		>l4RCD(ce>!c<)r8 l4RCD(ce>!c<)< l16rRCD(b->b-<)
+		l4RCD(a>g!a<)l16r>RCD(c>c<)< l4RCD(fa>!f<)r8
+		>l4RCD(eg#>!e<)r8 l4RCD(eb>!e<) l16rRCD(d>d<)
+		l4RCD(c#>!c#<)l16rRCD(e>e<)< l4RCD(a>c#!a<)l16rRCD(a>a<)
 
 		>#FFS l4RCD(!g>!c#!g<)r8< #MSA l4RCD(!a>a<)l16rRCD(a>a<)
 		>l4RCD(!f#>!c!f#<)r8< l4RCD(!a>a<)l16rRCD(a>a<)
